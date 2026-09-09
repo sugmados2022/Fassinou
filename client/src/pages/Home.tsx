@@ -1,157 +1,49 @@
 import { useState } from "react";
-import {
-  ArrowDown,
-  ArrowRight,
-  Check,
-  ChevronDown,
-  Clock3,
-  Droplets,
-  Menu,
-  Phone,
-  ShieldCheck,
-  Sparkles,
-  Star,
-  Sun,
-  X,
-} from "lucide-react";
+import { ArrowDown, ArrowRight, Check, ChevronDown, Clock3, Droplets, Mail, MapPin, Menu, PhoneCall, ShieldCheck, Sparkles, Star, Users, X } from "lucide-react";
 
-const heroImage = "/manus-storage/hero-vitrago_b6d885aa.webp";
-const logoImage = "/manus-storage/logo-vitrago_16478aba.webp";
+const logo = "/manus-storage/fassinou-logo-tight_c1373547.jpg";
+const products = "/manus-storage/cleaning-products_cee97280.jpg";
+const cleaning = "/manus-storage/service-cleaning_dda08407.jpg";
+const worker = "/manus-storage/service-worker_33c44130.jpg";
+const team = "/manus-storage/team_1ecaaf97.jpg";
 
-const benefits = [
-  { icon: Sun, title: "Lumière maximale", copy: "Éliminez la poussière et la grisaille" },
-  { icon: ShieldCheck, title: "Sécurité", copy: "Évitez les échelles, on s’occupe de tout" },
-  { icon: Sparkles, title: "Longévité", copy: "Protégez vos thermos et vos cadres" },
-  { icon: Droplets, title: "Look professionnel", copy: "Une maison qui brille, c’est une fierté" },
-];
-
-const reviews = [
-  { quote: "Ils sont venus chez moi et ont fait un très beau travail. Souriants, ponctuels et respectueux. Je vous les conseille fortement!", name: "Nataly Dutruel", place: "Jésuites" },
-  { quote: "Service impeccable, tarifs abordables, ponctuel et souci du détail. Des qualités indéniables pour une réussite en affaires.", name: "Daniel Langlois", place: "Bourg-Royal" },
-  { quote: "Yes Alex est très professionnel et il fait de la belle job! Je le recommande sans hésitation.", name: "Richard Talbot", place: "Québec" },
+const services = [
+  { icon: Sparkles, name: "Entretien", text: "Un entretien régulier et soigné pour des espaces toujours impeccables." },
+  { icon: Droplets, name: "Nettoyage", text: "Le nettoyage professionnel de vos bureaux, maisons et commerces." },
+  { icon: Check, name: "Remise en état", text: "Nous redonnons vie à vos espaces après travaux ou déménagement." },
+  { icon: ShieldCheck, name: "Dératisation", text: "Des solutions fiables pour protéger durablement votre environnement." },
+  { icon: Users, name: "Désinsectisation", text: "Une hygiène maîtrisée et un accompagnement discret et efficace." },
 ];
 
 const faqs = [
-  ["Combien coûte un lavage de vitres résidentiel à Québec?", "Le prix varie selon le nombre de vitres, le type de maison et le service choisi. Demandez votre soumission gratuite pour obtenir un prix exact en quelques minutes."],
-  ["Quelle est votre zone de service à Québec et Lévis?", "Nous desservons toute la grande région de Québec et Lévis dans un rayon de 30 km, incluant Sainte-Foy, Cap-Rouge, Sillery, Charlesbourg, Beauport et Limoilou."],
-  ["Quelle est la différence entre l’eau purifiée et le squeegee?", "L’eau déminéralisée est idéale pour l’extérieur : elle sèche sans laisser de traces. Le squeegee traditionnel est utilisé pour l’intérieur, avec une précision impeccable."],
-  ["Est-ce que vous offrez une garantie de satisfaction?", "Oui. Si vous trouvez une tache ou un défaut après notre passage, nous revenons dans les 24 heures sans frais supplémentaires."],
+  ["Quels types de locaux entretenez-vous?", "Fassinou Services intervient dans les maisons, bureaux, commerces, immeubles et espaces professionnels, selon vos besoins."],
+  ["Intervenez-vous à Cotonou et ses environs?", "Oui. Nous sommes basés à Haie Vive, dans le 12ème arrondissement de Cotonou, et intervenons dans la région selon la nature de la mission."],
+  ["Proposez-vous des contrats d’entretien réguliers?", "Oui. Nous adaptons la fréquence à votre activité : passage quotidien, hebdomadaire, mensuel ou intervention ponctuelle."],
+  ["Comment obtenir un devis?", "Appelez-nous ou écrivez-nous par email. Nous échangeons sur votre besoin et vous proposons une solution adaptée."],
 ];
 
 function QuoteModal({ onClose }: { onClose: () => void }) {
-  return (
-    <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="quote-title">
-      <div className="quote-modal">
-        <button className="modal-close" onClick={onClose} aria-label="Fermer"><X size={20} /></button>
-        <div className="eyebrow">C’est gratuit et sans engagement</div>
-        <h2 id="quote-title">Obtenez votre soumission</h2>
-        <p>Quelques détails suffisent pour commencer. Nous vous répondrons rapidement.</p>
-        <form onSubmit={(event) => { event.preventDefault(); onClose(); }}>
-          <label>Votre nom<input required placeholder="Marie Tremblay" /></label>
-          <label>Votre téléphone<input required type="tel" placeholder="(418) 000-0000" /></label>
-          <label>Votre besoin<select defaultValue=""><option value="" disabled>Choisissez un service</option><option>Résidentiel intérieur</option><option>Résidentiel extérieur</option><option>Intérieur et extérieur</option><option>Commercial</option></select></label>
-          <button className="button button-primary button-full" type="submit">Recevoir ma soumission <ArrowRight size={16} /></button>
-        </form>
-        <div className="modal-note"><ShieldCheck size={15} /> Aucun engagement, jamais de pression</div>
-      </div>
-    </div>
-  );
+  return <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="quote-title"><div className="quote-modal"><button className="modal-close" onClick={onClose} aria-label="Fermer"><X size={20} /></button><div className="eyebrow">Demande gratuite</div><h2 id="quote-title">Parlons de votre besoin</h2><p>Indiquez-nous vos coordonnées et notre équipe vous recontactera rapidement.</p><form onSubmit={(e) => { e.preventDefault(); onClose(); }}><label>Votre nom<input required placeholder="Votre nom complet" /></label><label>Votre téléphone<input required type="tel" placeholder="+229 01 00 00 00 00" /></label><label>Votre besoin<select defaultValue=""><option value="" disabled>Choisissez un service</option>{services.map((service) => <option key={service.name}>{service.name}</option>)}</select></label><button className="button button-primary button-full" type="submit">Envoyer ma demande <ArrowRight size={16} /></button></form><div className="modal-note"><ShieldCheck size={15} /> Vos informations restent confidentielles</div></div></div>;
 }
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   const closeMenu = () => setMenuOpen(false);
   const openQuote = () => { setQuoteOpen(true); closeMenu(); };
-
-  return (
-    <div className="site-shell">
-      <header className="site-header">
-        <a className="brand" href="#accueil" aria-label="VitraGo accueil">
-          <img src={logoImage} alt="VitraGo" />
-        </a>
-        <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Navigation principale">
-          <a href="#avantages" onClick={closeMenu}>Avantages</a>
-          <a href="#methode" onClick={closeMenu}>Notre méthode</a>
-          <a href="#temoignages" onClick={closeMenu}>Témoignages</a>
-          <a href="#faq" onClick={closeMenu}>FAQ</a>
-          <a className="phone-link" href="tel:+14182719362"><Phone size={13} /> (418) 271-9362</a>
-          <button className="button button-small button-primary" onClick={openQuote}>Soumission gratuite</button>
-        </nav>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={menuOpen}>
-          {menuOpen ? <X size={23} /> : <Menu size={23} />}
-        </button>
-      </header>
-
-      <main>
-        <section id="accueil" className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
-          <div className="hero-overlay" />
-          <div className="hero-content">
-            <div className="review-pill"><span className="google-g">G</span><strong>4.9</strong><span className="tiny-stars">★★★★★</span><span>431+ clients satisfaits depuis 2025</span></div>
-            <h1>Vos fenêtres sont sales? <span>On s’en occupe!</span></h1>
-            <p>L’entreprise de lavage de vitres la mieux cotée à Québec et Lévis. Plusieurs centaines de clients satisfaits, un résultat impeccable et une garantie de satisfaction.</p>
-            <div className="hero-actions">
-              <button className="button button-primary" onClick={openQuote}>Obtenir ma soumission gratuite <ArrowRight size={16} /></button>
-              <a className="hero-phone" href="tel:+14182719362">Ou appelez : (418) 271-9362</a>
-            </div>
-          </div>
-          <a className="scroll-cue" href="#avantages" aria-label="Découvrir les avantages"><span>Découvrez</span><ArrowDown size={17} /></a>
-        </section>
-
-        <section id="avantages" className="section benefits-section">
-          <div className="section-heading centered">
-            <div className="eyebrow">Pourquoi nettoyer vos vitres?</div>
-            <h2>Des vitres propres, c’est bien plus qu’un nettoyage</h2>
-            <p>Un geste simple pour une maison plus lumineuse, plus saine et plus agréable à vivre.</p>
-          </div>
-          <div className="benefits-grid">
-            {benefits.map(({ icon: Icon, title, copy }) => (
-              <article className="benefit-card" key={title}>
-                <div className="icon-box"><Icon size={22} strokeWidth={1.8} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="service-band">
-          <div className="service-band-copy">
-            <div className="eyebrow">Zone de service</div>
-            <h2>Lavage de vitres à Québec et Lévis</h2>
-            <p>Nous redonnons vie à vos fenêtres résidentielles et commerciales avec une précision chirurgicale dans un rayon de 30 km.</p>
-            <div className="service-list"><span><Check size={14} /> Sainte-Foy, Cap-Rouge, Sillery</span><span><Check size={14} /> Charlesbourg, Beauport, Limoilou</span><span><Check size={14} /> Lévis, Saint-Nicolas, Saint-Romuald</span><span><Check size={14} /> Et tous les quartiers environnants!</span></div>
-            <button className="text-button" onClick={openQuote}>Obtenir ma soumission <ArrowRight size={16} /></button>
-          </div>
-          <div className="service-map"><div className="map-orbit map-orbit-large" /><div className="map-orbit map-orbit-small" /><div className="map-pin"><Droplets size={19} /></div><div className="map-label">Rayon de 30 km</div><div className="map-city city-qc">QUÉBEC</div><div className="map-city city-levis">LÉVIS</div></div>
-        </section>
-
-        <section id="methode" className="section method-section">
-          <div className="section-heading centered"><div className="eyebrow">Notre expertise</div><h2>La méthode VitraGo</h2><p>Une technique adaptée à chaque situation pour des résultats impeccables.</p></div>
-          <div className="method-grid">
-            <article className="method-card method-card-dark"><div className="method-art art-purified"><div className="bubble bubble-one" /><div className="bubble bubble-two" /><Droplets size={44} strokeWidth={1.2} /></div><div className="method-copy"><span className="method-kicker">Extérieur</span><h3>Eau purifiée</h3><p>Technologie d’eau déminéralisée pour un séchage sans traces, même au soleil. Écologique et sans produits chimiques.</p><span className="method-detail"><Check size={15} /> Séchage naturel sans traces</span><span className="method-detail"><Check size={15} /> Idéal pour les grandes surfaces</span></div></article>
-            <article className="method-card"><div className="method-art art-squeegee"><div className="window-frame"><span /><span /><span /><span /></div><div className="squeegee-line" /></div><div className="method-copy"><span className="method-kicker">Intérieur</span><h3>Traditionnel au squeegee</h3><p>L’expertise manuelle au squeegee et mop pour une finition impeccable sans éclaboussures.</p><span className="method-detail"><Check size={15} /> Précision millimétrique</span><span className="method-detail"><Check size={15} /> Protection de vos meubles</span></div></article>
-          </div>
-          <div className="plus-card"><Sparkles size={21} /><p><strong>Le petit plus VitraGo</strong><br /><span>Nettoyage des rails et cadrages inclus</span> avec chaque service. Moustiquaires en option pour une propreté totale.</p><button className="text-button" onClick={openQuote}>Demander ma soumission <ArrowRight size={16} /></button></div>
-        </section>
-
-        <section id="temoignages" className="section reviews-section">
-          <div className="section-heading centered"><div className="eyebrow">Résultats garantis</div><h2>La différence VitraGo</h2><p>De vrais avis de vrais clients satisfaits.</p></div>
-          <div className="stats-row"><div><strong>500<span>+</span></strong><small>Vitres lavées depuis 2025</small></div><div><strong>431<span>+</span></strong><small>Clients satisfaits</small></div><div><strong>0</strong><small>Client insatisfait</small></div></div>
-          <div className="review-grid">{reviews.map((review) => <article className="review-card" key={review.name}><div className="stars">★★★★★</div><p>“{review.quote}”</p><div className="review-author"><span className="avatar">{review.name.charAt(0)}</span><span><strong>{review.name}</strong><small>{review.place}</small></span></div></article>)}</div>
-        </section>
-
-        <section id="faq" className="section faq-section">
-          <div className="faq-layout"><div className="section-heading"><div className="eyebrow">Questions fréquentes</div><h2>Tout ce que vous devez savoir</h2><p>Besoin d’un renseignement avant de réserver? Nous avons les réponses.</p><a className="text-button" href="tel:+14182719362">Parler à un expert <Phone size={16} /></a></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={openFaq === index ? "faq-item is-open" : "faq-item"} key={question}><button onClick={() => setOpenFaq(openFaq === index ? null : index)} aria-expanded={openFaq === index}><span>{question}</span><ChevronDown size={18} /></button><div className="faq-answer"><p>{answer}</p></div></div>)}</div></div>
-        </section>
-
-        <section className="final-cta"><div className="final-cta-inner"><div className="eyebrow">Satisfaction garantie</div><h2>Nettoyage de vitres garanti.<br /><span>Zéro risque.</span></h2><p>Si vous trouvez une tache après notre passage, on revient dans les 24h sans frais. C’est la promesse VitraGo.</p><div className="guarantees"><span><ShieldCheck size={17} /> Retour gratuit 24h</span><span><Clock3 size={17} /> Aucun engagement</span></div><button className="button button-primary" onClick={openQuote}>Obtenir ma soumission gratuite <ArrowRight size={16} /></button></div></section>
-      </main>
-
-      <footer className="site-footer"><div className="footer-top"><div><a className="brand footer-brand" href="#accueil"><img src={logoImage} alt="VitraGo" /></a><p>Service professionnel de nettoyage de vitres résidentiel et commercial dans la grande région de Québec et Lévis.</p></div><div className="footer-column"><h4>Services</h4><a href="#methode">Lavage résidentiel</a><a href="#methode">Lavage commercial</a><a href="#accueil" onClick={openQuote}>Soumission résidentielle</a></div><div className="footer-column"><h4>Contact</h4><a href="tel:+14182719362">(418) 271-9362</a><a href="mailto:alexandre@vitrago.net">alexandre@vitrago.net</a><span>Québec et Lévis<br />Rayon de 30 km</span></div></div><div className="footer-bottom"><span>© 2025 VitraGo. Tous droits réservés.</span><span>Fait pour des fenêtres qui brillent.</span></div></footer>
-      {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} />}
-    </div>
-  );
+  return <div className="site-shell">
+    <header className="site-header"><a className="brand brand-card" href="#accueil" aria-label="Fassinou Services accueil"><img src={logo} alt="Fassinou Services" /></a><nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Navigation principale"><a href="#services" onClick={closeMenu}>Nos services</a><a href="#methode" onClick={closeMenu}>Notre méthode</a><a href="#apropos" onClick={closeMenu}>À propos</a><a href="#faq" onClick={closeMenu}>FAQ</a><a className="phone-link" href="tel:+2290143446666"><PhoneCall size={13} /> +229 01 43 44 66 66</a><button className="button button-small button-primary" onClick={openQuote}>Demander un devis</button></nav><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen ? <X size={23} /> : <Menu size={23} />}</button></header>
+    <main>
+      <section id="accueil" className="hero fassinou-hero"><div className="hero-overlay" /><div className="hero-photo" style={{ backgroundImage: `url(${products})` }} /><div className="hero-content"><div className="hero-kicker"><span /> FASSINOU SERVICES <span /></div><h1>Votre partenaire,<br /><em>propreté et hygiène.</em></h1><p>Nous prenons soin de vos espaces avec rigueur, discrétion et professionnalisme à Cotonou et ses environs.</p><div className="hero-actions"><button className="button button-primary" onClick={openQuote}>Demander un devis gratuit <ArrowRight size={16} /></button><a className="hero-phone" href="tel:+2290143446666">+229 01 43 44 66 66</a></div></div><a className="scroll-cue" href="#services" aria-label="Découvrir nos services"><span>Découvrir</span><ArrowDown size={17} /></a></section>
+      <section id="services" className="section services-section"><div className="section-heading centered"><div className="eyebrow">Notre savoir-faire</div><h2>Des services pensés pour des espaces impeccables</h2><p>De l’entretien quotidien aux interventions spécialisées, Fassinou Services vous accompagne avec des solutions d’hygiène adaptées.</p></div><div className="services-layout"><div className="service-visual"><img className="main-service-image" src={cleaning} alt="Agent Fassinou Services en intervention" /><div className="image-badge"><Star size={17} fill="currentColor" /><span><strong>Qualité & rigueur</strong><small>Chaque détail compte</small></span></div></div><div className="service-cards">{services.map(({ icon: Icon, name, text }, index) => <article className={index === 0 ? "service-card featured" : "service-card"} key={name}><div className="service-icon"><Icon size={20} /></div><div><h3>{name}</h3><p>{text}</p></div><ArrowRight className="service-arrow" size={17} /></article>)}</div></div></section>
+      <section className="promise-band"><div className="promise-image" style={{ backgroundImage: `url(${worker})` }} /><div className="promise-copy"><div className="eyebrow">Notre engagement</div><h2>La propreté qui se voit.<br /><span>La confiance qui reste.</span></h2><p>Notre équipe met son expertise et son énergie au service d’environnements sains, accueillants et durables.</p><div className="promise-list"><span><Check size={14} /> Personnel sérieux et formé</span><span><Check size={14} /> Produits et méthodes adaptés</span><span><Check size={14} /> Intervention discrète et ponctuelle</span></div><button className="text-button" onClick={openQuote}>Parler à notre équipe <ArrowRight size={16} /></button></div></section>
+      <section id="methode" className="section method-section"><div className="section-heading centered"><div className="eyebrow">Notre méthode</div><h2>Un service simple, précis et humain</h2><p>Une organisation claire pour vous offrir une qualité constante à chaque passage.</p></div><div className="method-grid"><article><div className="number">01</div><h3>Écouter votre besoin</h3><p>Nous prenons le temps de comprendre vos espaces, vos contraintes et vos attentes.</p></article><article><div className="number">02</div><h3>Planifier la bonne intervention</h3><p>Nous choisissons le rythme, l’équipe et les méthodes les plus adaptés.</p></article><article><div className="number">03</div><h3>Garantir un résultat net</h3><p>Nous contrôlons chaque prestation pour que la qualité soit au rendez-vous.</p></article></div><div className="team-card"><img src={team} alt="Équipe Fassinou Services" /><div><div className="eyebrow">Une équipe engagée</div><h3>Des femmes et des hommes fiers de leur travail</h3><p>Votre satisfaction est notre meilleure recommandation.</p></div><button className="button button-outline" onClick={openQuote}>Nous contacter <ArrowRight size={16} /></button></div></section>
+      <section id="apropos" className="section about-section"><div className="about-grid"><div><div className="eyebrow">Fassinou Services</div><h2>L’hygiène professionnelle, avec une attention particulière.</h2><p>Nous aidons les particuliers et les professionnels à garder des espaces propres, sains et agréables. Notre promesse : une présence fiable, un travail soigné et une relation de confiance.</p><div className="stats-row"><div><strong>5</strong><small>Expertises complémentaires</small></div><div><strong>100%</strong><small>Engagement terrain</small></div><div><strong>24/7</strong><small>À votre écoute</small></div></div></div><div className="about-card"><Droplets size={25} /><h3>Votre partenaire propreté et hygiène</h3><p>Entretien, nettoyage, remise en état, dératisation et désinsectisation : une seule équipe pour un environnement maîtrisé.</p><button className="text-button" onClick={openQuote}>Obtenir un devis <ArrowRight size={16} /></button></div></div></section>
+      <section id="faq" className="section faq-section"><div className="faq-layout"><div className="section-heading"><div className="eyebrow">Questions fréquentes</div><h2>Tout ce que vous devez savoir</h2><p>Une question sur nos interventions? Notre équipe est disponible pour vous répondre.</p><a className="text-button" href="mailto:constantin8821@gmail.com">Écrire à l’équipe <Mail size={16} /></a></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={openFaq === index ? "faq-item is-open" : "faq-item"} key={question}><button onClick={() => setOpenFaq(openFaq === index ? null : index)} aria-expanded={openFaq === index}><span>{question}</span><ChevronDown size={18} /></button><div className="faq-answer"><p>{answer}</p></div></div>)}</div></div></section>
+      <section className="final-cta"><div className="final-cta-inner"><div className="eyebrow">Un espace propre change tout</div><h2>Parlons de votre prochain<br /><span>besoin de propreté.</span></h2><p>Demandez votre devis et construisons ensemble la solution adaptée à votre environnement.</p><div className="guarantees"><span><ShieldCheck size={17} /> Réponse rapide</span><span><Clock3 size={17} /> Service professionnel</span></div><button className="button button-primary" onClick={openQuote}>Demander un devis gratuit <ArrowRight size={16} /></button></div></section>
+    </main>
+    <footer className="site-footer"><div className="footer-top"><div><a className="brand footer-brand brand-card" href="#accueil"><img src={logo} alt="Fassinou Services" /></a><p>Votre partenaire propreté et hygiène à Cotonou et dans ses environs.</p></div><div className="footer-column"><h4>Nos services</h4>{services.map((service) => <a href="#services" key={service.name}>{service.name}</a>)}</div><div className="footer-column"><h4>Nous joindre</h4><a href="tel:+2290143446666"><PhoneCall size={13} /> +229 01 43 44 66 66</a><a href="tel:+2290165754616"><PhoneCall size={13} /> +229 01 65 75 46 16</a><a href="mailto:constantin8821@gmail.com"><Mail size={13} /> constantin8821@gmail.com</a></div><div className="footer-column"><h4>Adresse</h4><span><MapPin size={13} /> Lot 1136, Parcelle NAV M/CHARLEMAGNE ZANNOU<br />Haie Vive, 12ème arrondissement<br />Cotonou, Bénin</span></div></div><div className="footer-bottom"><span>© 2025 Fassinou Services. Tous droits réservés.</span><span>IFU : 1201610181303 · RCCM RB / ABC / 17 A 5685</span></div></footer>
+    {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} />}
+  </div>;
 }
