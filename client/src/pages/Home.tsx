@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ArrowDown, ArrowRight, Check, ChevronDown, Clock3, Droplets, Mail, MapPin, Menu, PhoneCall, ShieldCheck, Sparkles, Star, Users, X } from "lucide-react";
 
 const logo = "/manus-storage/fassinou-logo-tight_c1373547.jpg";
-const products = "/manus-storage/cleaning-products_cee97280.jpg";
+const products = "/manus-storage/hero-vitrago_b6d885aa.webp";
 const cleaning = "/manus-storage/service-cleaning_dda08407.jpg";
 const worker = "/manus-storage/service-worker_33c44130.jpg";
 const team = "/manus-storage/team_1ecaaf97.jpg";
